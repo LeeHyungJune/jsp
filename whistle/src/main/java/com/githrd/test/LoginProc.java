@@ -54,7 +54,7 @@ public class LoginProc extends HttpServlet {
 			//	로그인 처리
 			req.getSession().setAttribute("SID", pid);
 			//	메인페이지로 이동
-			resp.sendRedirect("/whistle/");
+			resp.sendRedirect("/whistle/test/");
 		} else {
 			//	로그인 페이지로 돌려보낸다.
 			resp.sendRedirect("/whistle/test/login.pink");

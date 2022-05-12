@@ -31,7 +31,7 @@ public class JenyJDBC {
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		
 		String user = "jennie";
-		String pw = "0000";
+		String pw = "12345";
 		
 		try {
 			con = DriverManager.getConnection(url, user, pw);

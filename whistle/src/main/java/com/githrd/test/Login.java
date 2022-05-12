@@ -28,6 +28,7 @@ public class Login extends HttpServlet {
 	 */
 	//	로그인 여부 검사
 	//	1.	세션객체 꺼내오고
+	req.setCharacterEncoding("utf-8");
 	HttpSession session = req.getSession();
 	//	2.	세션에서 저장된 데이터가 있는지 꺼내본다.
 	String sid = (String) session.getAttribute("SID");

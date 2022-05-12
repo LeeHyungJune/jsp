@@ -9,7 +9,7 @@ import javax.servlet.http.*;
 
 import com.githrd.test.dao.*;
 
-@WebServlet("/test/loginAjax.pink")
+//@WebServlet("/test/loginAjax.pink")
 public class LoginAjax extends HttpServlet {
 
 	protected void service(HttpServletRequest req, HttpServletResponse resp) 
@@ -21,7 +21,7 @@ public class LoginAjax extends HttpServlet {
 			resp.sendRedirect("/whistle");
 			return;
 		}
-		
+		req.setCharacterEncoding("utf-8");
 		//	1.	파라미터 받기
 		String pid = req.getParameter("id");
 		String ppw = req.getParameter("pw");

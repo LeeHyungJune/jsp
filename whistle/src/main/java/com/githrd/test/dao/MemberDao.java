@@ -2,9 +2,9 @@ package com.githrd.test.dao;
 
 import java.sql.*;
 
-import com.githrd.test.MemberVO;
 import com.githrd.test.db.*;
 import com.githrd.test.sql.*;
+import com.githrd.test.vo.MemberVO;
 
 public class MemberDao {
 	private JenyJDBC db;
@@ -53,25 +53,28 @@ public class MemberDao {
 	}
 	
 	public MemberVO getMyInfo(String id) {
+		con = db.getCon();
+		
 		MemberVO mVO = new MemberVO();
+		
 		String sql = mSQL.getSQL(mSQL.SEL_MYINFO);
 		
 		pstmt = db.getPstmt(con, sql);
 		
 		try {
 			pstmt.setString(1, id);
+
 			rs = pstmt.executeQuery();
 			
 			rs.next();
-			
 			
 			int mno = rs.getInt("mno");
 			String name = rs.getString("name");
 			String mid = rs.getString("id");
 			String mail = rs.getString("mail");
 			String tel = rs.getString("tel");
-			Date hdate = rs.getDate("hdate");
-			Time htime = rs.getTime("hdate");
+			Date hdate = rs.getDate("joindate");
+			Time htime = rs.getTime("joindate");
 			String gen = rs.getString("gen");
 			
 			mVO.setMno(mno);
