@@ -5,15 +5,15 @@ import java.util.Date;
 import java.text.*;
 
 public class BoardVO {
-	private int rno, bno, mno, cnt, ano;
-	private String body, id, title, sdate, avatar;
+	private int mno, bno, upno, rno, ano, cnt, step;
+	private String id, title, body, sdate, avatar;
 	private Date wdate;
 	private Time wtime;
-	public int getRno() {
-		return rno;
+	public int getMno() {
+		return mno;
 	}
-	public void setRno(int rno) {
-		this.rno = rno;
+	public void setMno(int mno) {
+		this.mno = mno;
 	}
 	public int getBno() {
 		return bno;
@@ -21,17 +21,17 @@ public class BoardVO {
 	public void setBno(int bno) {
 		this.bno = bno;
 	}
-	public int getMno() {
-		return mno;
+	public int getUpno() {
+		return upno;
 	}
-	public void setMno(int mno) {
-		this.mno = mno;
+	public void setUpno(int upno) {
+		this.upno = upno;
 	}
-	public int getCnt() {
-		return cnt;
+	public int getRno() {
+		return rno;
 	}
-	public void setCnt(int cnt) {
-		this.cnt = cnt;
+	public void setRno(int rno) {
+		this.rno = rno;
 	}
 	public int getAno() {
 		return ano;
@@ -39,11 +39,17 @@ public class BoardVO {
 	public void setAno(int ano) {
 		this.ano = ano;
 	}
-	public String getBody() {
-		return body;
+	public int getCnt() {
+		return cnt;
 	}
-	public void setBody(String body) {
-		this.body = body;
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+	public int getStep() {
+		return step;
+	}
+	public void setStep(int step) {
+		this.step = step;
 	}
 	public String getId() {
 		return id;
@@ -56,6 +62,12 @@ public class BoardVO {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getBody() {
+		return body;
+	}
+	public void setBody(String body) {
+		this.body = body;
 	}
 	public String getSdate() {
 		return sdate;
@@ -88,10 +100,12 @@ public class BoardVO {
 	}
 	@Override
 	public String toString() {
-		return "BoardVO { rno=" + rno + ", bno=" + bno + ", mno=" + mno + ", cnt=" + cnt + ", ano=" + ano + ", body="
-				+ body + ", id=" + id + ", title=" + title + ", sdate=" + sdate + ", avatar=" + avatar + ", wdate="
-				+ wdate + ", wtime=" + wtime + "}";
+		return "BoardVO [mno=" + mno + ", bno=" + bno + ", upno=" + upno + ", rno=" + rno + ", ano=" + ano + ", cnt="
+				+ cnt + ", step=" + step + ", id=" + id + ", title=" + title + ", body=" + body + ", sdate=" + sdate
+				+ ", avatar=" + avatar + ", wdate=" + wdate + ", wtime=" + wtime + "]";
 	}
+	
+	
 	
 	
 }

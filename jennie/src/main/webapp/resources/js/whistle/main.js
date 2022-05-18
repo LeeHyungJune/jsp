@@ -25,5 +25,9 @@ $(document).ready(function(){
 	
 	$('#gbtn').click(function(){
 		$(location).attr('href','/whistle/guestBoard/gBoardList.blp');
-	})
+	});
+	
+	$('#rbtn').click(function(){
+		$(location).attr('href','/whistle/reboard/reboardList.blp');
+	});
 });

@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="/whistle/resources/css/w3.css">
 <link rel="stylesheet" type="text/css" href="/whistle/resources/css/user.css">
 <script type="text/javascript" src="/whistle/resources/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/whistle/resources/js/whistle/gboard.js?ver=4"></script>
+<script type="text/javascript" src="/whistle/resources/js/whistle/reboard.js"></script>
 <style type="text/css">
 	.w3-button{
 		padding: 1px 16px;
@@ -20,9 +20,9 @@
 </head>
 <body>
 
-	<div class="w3-content mxw650 w3-margin-top">
+	<div class="w3-content mxw750 w3-margin-top">
 		<header class="w3-col w3-card-4 mgb20">
-			<h1 class="w3-pink w3-center w3-padding mg0">BlackPink 방명록</h1>
+			<h1 class="w3-pink w3-center w3-padding mg0">BlackPink 댓글 게시판</h1>
 			<nav class="w3-bar w3-yellow">
 				<div class="w3-col w3-button w150 w3-small w3-green" id="hbtn">home</div> 
 <c:if test="${empty SID}">
@@ -37,23 +37,30 @@
 </c:if>
 			</nav>
 		</header>
-<c:forEach var="data" items="${LIST }">	
 		<!-- 페이지 본문 -->
-		<div class="w3-col w3-round-large w3-card-4 w3-margin-bottom w3-padding">
+<c:forEach var="data" items="${LIST }">
+		<div class="w3-col w3-round-large w3-card-4 w3-margin-bottom w3-padding" style="padding-left: ${data.step * 50}px;">
 			<div class="w3-col box120 pdAll10 w3-border-right">
 				<img src="/whistle/resources/img/avatar/${data.avatar}" class="inblock avtBox100 w3-border w3-border-grey">
+				<span class="w3-col w3-center mgb10 ft10 "><b>${data.id }</b></span>
 			</div>
 			<div class="w3-rest w3-padding">
 				<div class="w3-col w3-border-bottom ">
-					<span class="mgb10 ft10 "><b>${data.id }</b></span>
-					<span class="w3-right mgb10 ft10"><small>${data.sdate}</small></span>
+					<div class="w3-col w3-twothird">
+						<div class="w3-button w3-col w100 w3-blue">댓글</div>
+		<c:if test="${SID eq data.id}">
+						<div class="w3-button w3-col w100 w3-orange">수정</div>
+						<div class="w3-button w3-col w100 w3-red">삭제</div>
+		</c:if>				
+					</div>
+					<span class="w3-third w3-left mgb10 ft10"><small>${data.sdate}</small></span>
 				</div>
 				<div class="w3-col w3-margin-top">
 					<span class="w3-col w3-padding ft12">${data.body}</span>
 				</div>
 			</div>
 		</div>
-</c:forEach>		
+</c:forEach>	
 
 		<!-- 페이지 처리 -->
 		<div class="w3-center">

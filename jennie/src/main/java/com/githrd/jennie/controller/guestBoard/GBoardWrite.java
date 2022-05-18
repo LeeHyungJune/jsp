@@ -7,6 +7,7 @@ import javax.servlet.http.*;
 
 import com.githrd.jennie.controller.*;
 import com.githrd.jennie.dao.*;
+import com.githrd.jennie.vo.BoardVO;
 
 public class GBoardWrite implements BlpInter {
 
@@ -25,13 +26,14 @@ public class GBoardWrite implements BlpInter {
 		GBoardDao gDao = new GBoardDao();
 		int cnt = gDao.getWriteCount(sid);
 		if(cnt == 1) {
+			//	이 경우는 이미 작성한 경우이므로 리스트페이지로 돌려보낸다.
 			req.setAttribute("isRedirect", true);
 			return "whistle/guestBoard/gBoardList.blp?nowPage=" + spage; // get 방식으로 요청
 		}
-		//	파라미터 꺼내고
 		
+		BoardVO bVO = gDao.getWriterInfo(sid);
 		
-		
+		req.setAttribute("DATA", bVO);
 		String view = "/guestBoard/gBoardWrite";	//	forward 방식으로 뷰를 부르게 되므로 요청객체는 계속 유지된다.
 		return view;	
 	}

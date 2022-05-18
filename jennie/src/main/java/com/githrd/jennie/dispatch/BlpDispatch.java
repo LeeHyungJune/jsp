@@ -143,7 +143,7 @@ public class BlpDispatch extends HttpServlet {
  			resp.sendRedirect(view);
  		} else {
  			// 포워드 시켜야 하는 경우
- 			String prefix = "/WEB-INF/views/whistle";
+ 			String prefix = "/WEB-INF/views";
  			String surrfix = ".jsp";
  			
  			RequestDispatcher rd = req.getRequestDispatcher(prefix + view + surrfix);
