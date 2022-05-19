@@ -87,5 +87,83 @@ public class ReboardDao {
 		}
 		return cnt;
 	}
-
+	
+	//	작성자 정보조회 전담 처리함수
+	public BoardVO getWriterInfo(String id) {
+		BoardVO bVO = new BoardVO();
+		con = db.getCon();
+		String sql = rSQL.getSQL(rSQL.SEL_WRITER_INFO);
+		pstmt = db.getPSTMT(con, sql);
+		try {
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			rs.next();
+			bVO.setMno(rs.getInt("mno"));
+			bVO.setAvatar(rs.getString("savename"));
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.close(rs);
+			db.close(pstmt);
+			db.close(con);
+		}
+		return bVO;
+	}
+	
+	//	원글 등록 데이터베이스 작업 전담 처리함수
+	public int addReboard(BoardVO bVO) {
+		int cnt = 0;
+		con = db.getCon();
+		String sql = rSQL.getSQL(rSQL.INSERT_REBOARD);
+		pstmt = db.getPSTMT(con, sql);
+		try {
+			pstmt.setNull(1, java.sql.Types.NULL);
+			pstmt.setInt(2, bVO.getMno());
+			pstmt.setString(3, bVO.getBody());
+			cnt = pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.close(pstmt);
+			db.close(con);
+		}
+		
+		return cnt;
+	}
+	
+	//	댓글 쓰기 사용 데이터 조회 전담 처리함수
+	public BoardVO getReboardInfo(int bno, String id) {
+		BoardVO bVO = new BoardVO();
+		//	커넥션
+		con = db.getCon();
+		//	질의명령
+		String sql = rSQL.getSQL(rSQL.SEL_REBOARD_INFO);
+		
+		//	명령 전달도구
+		pstmt = db.getPSTMT(con, sql);
+		try {
+			//	질의명령 완성
+			pstmt.setInt(1, bno);
+			pstmt.setString(2, id);
+			//	보내고 결과 받고
+			rs = pstmt.executeQuery();
+			rs.next();
+			String body = rs.getString("body");
+			body = (body.length() >= 10) ? body.substring(0, 10) + "..." : body;
+			bVO.setUpno(rs.getInt("rbno"));
+			bVO.setBody(body);
+			bVO.setMno(rs.getInt("mno"));
+			bVO.setId(rs.getString("id"));
+			bVO.setAvatar(rs.getString("savename"));
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.close(rs);
+			db.close(pstmt);
+			db.close(con);
+		}
+		
+		//	VO 반환
+		return bVO;
+	}
 }

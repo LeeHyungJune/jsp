@@ -146,6 +146,29 @@
 요청내용	:	/whistle/reboard/reboardList.blp
 파라미터	:	[nowPage]
 컨트롤러	:	com.githrd.jennie.controller.reboard.ReboardList
-뷰			:	/WEB-INF/views/reboard/reboardList.blp
+뷰			:	/WEB-INF/views/reboard/reboardList.jsp
 					
-									
+----------------------------------------------------------------------------					
+# 	댓글 게시판 글작성 폼보기 요청
+요청내용	:	/whistle/reboard/reboardWrite.blp
+파라미터	:	[nowPage]
+컨트롤러	:	com.githrd.jennie.controller.reboard.ReboardWrite
+뷰			:	/WEB-INF/views/reboard/reboardWrite.jsp
+
+----------------------------------------------------------------------------					
+# 	댓글 게시판 글작성 처리 요청
+요청내용	:	/whistle/reboard/reboardWriteProc.blp
+파라미터	:	[nowPage], mno, body
+컨트롤러	:	com.githrd.jennie.controller.reboard.ReboardWriteProc
+뷰			:	redirect )
+						성공 : /whistle/reboard/reboardList.blp(nowPage 상관없음)
+						실패 : 	==>	forward ) redirect.jsp
+								/whistle/reboard/reboardWrite.blp(nowPage 넘겨야함)
+
+----------------------------------------------------------------------------					
+# 	댓글 게시판 댓글작성 폼보기 요청
+요청내용	:	/whistle/reboard/reboardComment.blp
+파라미터	:	[nowPage]
+컨트롤러	:	com.githrd.jennie.controller.reboard.ReboardComment
+뷰			:	/WEB-INF/views/reboard/reboardComment.jsp
+														

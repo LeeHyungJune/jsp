@@ -4,73 +4,79 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>BlackPink 방명록</title>
+<title>BlackPink 댓글 게시판</title>
 <link rel="stylesheet" type="text/css" href="/whistle/resources/css/w3.css">
-<link rel="stylesheet" type="text/css" href="/whistle/resources/css/user.css">
+<link rel="stylesheet" type="text/css" href="/whistle/resources/css/user.css?ver=1">
 <script type="text/javascript" src="/whistle/resources/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/whistle/resources/js/whistle/reboard.js"></script>
+<script type="text/javascript" src="/whistle/resources/js/whistle/reboard.js?ver=4"></script>
 <style type="text/css">
-	.w3-button{
+	.w3-button {
 		padding: 1px 16px;
 	}
 	.box120 {
 		width: 135px;
+		height: auto;
+	}
+	.mid {
+		position: relative;
+		top: 5px;
 	}
 </style>
 </head>
 <body>
-
 	<div class="w3-content mxw750 w3-margin-top">
+		<!-- 페이지 헤더 -->
 		<header class="w3-col w3-card-4 mgb20">
 			<h1 class="w3-pink w3-center w3-padding mg0">BlackPink 댓글 게시판</h1>
 			<nav class="w3-bar w3-yellow">
-				<div class="w3-col w3-button w150 w3-small w3-green" id="hbtn">home</div> 
+				<div class="w3-col w150 w3-button w3-small w3-green menubtn" id="hbtn">home</div>
 <c:if test="${empty SID}">
-				<div class="w3-col w3-button w150 w3-small w3-deep-orange w3-right" id="lbtn">login</div> 
-				<div class="w3-col w3-button w150 w3-small w3-orange w3-right" id="jbtn">join</div>  
+				<div class="w3-col w150 w3-button w3-small w3-deep-orange w3-right menubtn" id="lbtn">login</div>
+				<div class="w3-col w150 w3-button w3-small w3-orange w3-right menubtn" id="jbtn">join</div>
 </c:if>
 <c:if test="${not empty SID}">
-				<div class="w3-col w3-button w150 w3-small w3-red w3-right" id="obtn">LogOut</div>  
-	<c:if test="${CNT eq 0}">
-				<div class="w3-col w3-button w150 w3-small w3-deep-orange w3-right" id="wbtn">글작성</div> 
-	</c:if>
+				<div class="w3-col w150 w3-button w3-small w3-red w3-right menubtn" id="obtn">logout</div>
+				<div class="w3-col w150 w3-button w3-small w3-orange w3-right menubtn" id="wbtn">글작성</div>
 </c:if>
 			</nav>
 		</header>
+		
 		<!-- 페이지 본문 -->
-<c:forEach var="data" items="${LIST }">
-		<div class="w3-col w3-round-large w3-card-4 w3-margin-bottom w3-padding" style="padding-left: ${data.step * 50}px;">
-			<div class="w3-col box120 pdAll10 w3-border-right">
-				<img src="/whistle/resources/img/avatar/${data.avatar}" class="inblock avtBox100 w3-border w3-border-grey">
-				<span class="w3-col w3-center mgb10 ft10 "><b>${data.id }</b></span>
-			</div>
-			<div class="w3-rest w3-padding">
-				<div class="w3-col w3-border-bottom ">
-					<div class="w3-col w3-twothird">
-						<div class="w3-button w3-col w100 w3-blue">댓글</div>
-		<c:if test="${SID eq data.id}">
-						<div class="w3-button w3-col w100 w3-orange">수정</div>
-						<div class="w3-button w3-col w100 w3-red">삭제</div>
-		</c:if>				
+<c:forEach var="data" items="${LIST}">
+		<div class="w3-col" style="padding-left: ${data.step * 70}px">
+			<div class="w3-col w3-round-large w3-card-4 w3-margin-bottom w3-padding">
+				<div class="w3-col box120 pdAll10 w3-border-right">
+					<img src="/whistle/resources/img/avatar/${data.avatar}" class="inblock avtBox100 w3-border w3-border-grey">
+					<span class="w3-col w3-center ft10 mid"><b>${data.id}</b></span>
+				</div>
+				<div class="w3-rest w3-padding">
+					<div class="w3-col w3-border-bottom">
+						<div class="w3-col w3-twothird w3-right" id="${data.bno}">
+							<div class="w3-col w3-button w3-small w70 w3-blue w3-right" >댓글</div>
+			<c:if test="${SID eq data.id}">
+							<div class="w3-col w3-button w3-small w70 w3-orange w3-right">수정</div>
+							<div class="w3-col w3-button w3-small w70 w3-red w3-right">삭제</div>
+			</c:if>
+						</div>
+						<span class="w3-third w3-left mgb10 ft10"><small>${data.sdate}</small></span>
 					</div>
-					<span class="w3-third w3-left mgb10 ft10"><small>${data.sdate}</small></span>
+					<div class="w3-col w3-margin-top">
+						<span class="w3-col w3-padding ft12" >${data.body}</span>
+					</div>
 				</div>
-				<div class="w3-col w3-margin-top">
-					<span class="w3-col w3-padding ft12">${data.body}</span>
-				</div>
-			</div>
 		</div>
-</c:forEach>	
-
-		<!-- 페이지 처리 -->
+		</div>
+</c:forEach>
+		
+		<!-- 페이지 처리 시작 -->
 		<div class="w3-center">
 			<div class="w3-bar w3-border w3-margin-top w3-margin-bottom">
-			<c:if test="${PAGE.startPage eq 1}">
+	<c:if test="${PAGE.startPage eq 1}">
 				<div class="w3-bar-item w3-light-grey">&laquo;</div>
-			</c:if>
-			<c:if test="${PAGE.startPage ne 1}">
-				<div class="w3-bar-item w3-button w3-hover-blue pbtn" id="${PAGE.startPage -1}">&laquo;</div>
-			</c:if>
+	</c:if>
+	<c:if test="${PAGE.startPage ne 1}">
+				<div class="w3-bar-item w3-button w3-hover-blue pbtn" id="${PAGE.startPage - 1}">&laquo;</div>
+	</c:if>
 	<c:forEach var="page" begin="${PAGE.startPage}" end="${PAGE.endPage}">
 			<c:if test="${page eq PAGE.nowPage}">
 				<div class="w3-bar-item w3-orange">${page}</div>
@@ -86,13 +92,15 @@
 				<div class="w3-bar-item w3-button w3-hover-blue pbtn" id="${PAGE.endPage + 1}">&raquo;</div>
 			</c:if>
 			</div>
-		<!-- 페이지 처리 태그 끝 -->
 		</div>
-		<!-- 데이터 전송용 form 태그 -->
-		<form method="post" action="/whistle/guestBoard/gBoardList.blp"	id="frm" name="frm">
-			<input type="hidden" id="nowPage" name="nowPage" value="${PAGE.nowPage}">
-			
-		</form>
+		<!-- 페이지 처리 태그 끝 -->
 	</div>
+	
+	<!-- 데이터 전송용 form 태그 -->
+	<form method="POST" action="/whistle/reboard/reboardList.blp" id="frm" name="frm">
+		<input type="hidden" id="nowPage" name="nowPage" value="${PAGE.nowPage}">
+		<input type="hidden" id="body" name="body" >
+		<input type="hidden" id="bno" name="bno" >
+	</form>
 </body>
 </html>

@@ -61,7 +61,9 @@ $(document).ready(function(){
 			$('#brd').slideToggle();
 			alert('보여주세요2');
 		},
-		error: function(){}
+		error: function(){
+			alert('연결 실패');
+		}
 	});
 	
 	};
