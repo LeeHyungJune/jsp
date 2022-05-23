@@ -8,8 +8,8 @@
 <link rel="stylesheet" type="text/css" href="/whistle/resources/css/w3.css">
 <link rel="stylesheet" type="text/css" href="/whistle/resources/css/base.css">
 <script type="text/javascript" src="/whistle/resources/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/whistle/resources/js/whistle/main.js?ver=1"></script>
-<style>
+<script type="text/javascript" src="/whistle/resources/js/whistle/main.js?ver=2"></script>
+<style type="text/css">
 	h5, span {
 		height: 20px;
 		line-height: 30%;

@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="/whistle/resources/css/w3.css">
 <link rel="stylesheet" type="text/css" href="/whistle/resources/css/user.css?ver=1">
 <script type="text/javascript" src="/whistle/resources/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/whistle/resources/js/whistle/reboard.js?ver=4"></script>
+<script type="text/javascript" src="/whistle/resources/js/whistle/reboard.js?ver=6"></script>
 <style type="text/css">
 	.w3-button {
 		padding: 1px 16px;
@@ -95,7 +95,23 @@
 		</div>
 		<!-- 페이지 처리 태그 끝 -->
 	</div>
-	
+
+	<!-- 메세지 출력 모달 창 -->
+<c:if test="${not empty MSG}">
+	<div id="modal" class="w3-modal" style="display: block;">
+	    <div class="w3-modal-content mxw650 w3-animate-top w3-card-4">
+	      <header class="w3-container w3-blue"> 
+	        <span onclick="document.getElementById('modal').style.display='none'" 
+	        class="w3-button w3-display-topright">&times;</span>
+	        <h2>BlackPink Message</h2>
+	      </header>
+	      <div class="w3-container w3-center">
+	        <h4>${MSG}</h4>
+	      </div>
+	    </div>
+	</div>
+</c:if>
+
 	<!-- 데이터 전송용 form 태그 -->
 	<form method="POST" action="/whistle/reboard/reboardList.blp" id="frm" name="frm">
 		<input type="hidden" id="nowPage" name="nowPage" value="${PAGE.nowPage}">

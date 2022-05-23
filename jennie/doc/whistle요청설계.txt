@@ -168,7 +168,49 @@
 ----------------------------------------------------------------------------					
 # 	댓글 게시판 댓글작성 폼보기 요청
 요청내용	:	/whistle/reboard/reboardComment.blp
-파라미터	:	[nowPage]
+파라미터	:	nowPage
 컨트롤러	:	com.githrd.jennie.controller.reboard.ReboardComment
 뷰			:	/WEB-INF/views/reboard/reboardComment.jsp
-														
+
+----------------------------------------------------------------------------					
+# 	댓글 게시판 댓글등록 처리 요청
+요청내용	:	/whistle/reboard/reboardCommentProc.blp
+파라미터	:	nowPage, upno, mno, body
+컨트롤러	:	com.githrd.jennie.controller.reboard.ReboardCommentProc
+뷰			:	redirect )
+						성공 :  	==>	forward ) redirect.jsp
+										/whistle/reboard/reboardList.blp
+						실패 : 		==>	forward ) redirect.jsp
+										/whistle/reboard/reboardWrite.blp
+
+----------------------------------------------------------------------------					
+# 	댓글 게시판 글삭제 처리 요청
+요청내용	:	/whistle/reboard/reboardDel.blp
+파라미터	:	nowPage, rbno
+컨트롤러	:	com.githrd.jennie.controller.reboard.ReboardDel
+뷰			:	redirect )
+						성공&실패 :  	==>	forward ) redirect.jsp
+											/whistle/reboard/reboardList.blp
+								
+----------------------------------------------------------------------------					
+# 	댓글 게시판 댓글 수정 폼보기 요청
+요청내용	:	/whistle/reboard/reboardEdit.blp
+파라미터	:	nowPage, bno
+컨트롤러	:	com.githrd.jennie.controller.reboard.ReboardEdit
+뷰			:	/WEB-INF/views/reboard/reboardEdit.jsp								
+								
+----------------------------------------------------------------------------					
+# 	댓글 게시판 댓글수정 처리 요청
+요청내용	:	/whistle/reboard/reboardEditProc.blp
+파라미터	:	nowPage, rbno, body
+컨트롤러	:	com.githrd.jennie.controller.reboard.ReboardEditroc
+뷰			:	redirect )
+						성공 :  	==>	forward ) redirect.jsp
+										/whistle/reboard/reboardList.blp
+						실패 : 		==>	forward ) redirect.jsp
+										/whistle/reboard/reboardEdit.blp								
+								
+								
+																
+								
+								

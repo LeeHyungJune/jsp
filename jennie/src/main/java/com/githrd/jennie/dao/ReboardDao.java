@@ -117,7 +117,11 @@ public class ReboardDao {
 		String sql = rSQL.getSQL(rSQL.INSERT_REBOARD);
 		pstmt = db.getPSTMT(con, sql);
 		try {
-			pstmt.setNull(1, java.sql.Types.NULL);
+			if(bVO.getUpno() == 0) {
+				pstmt.setNull(1, java.sql.Types.NULL);
+			} else {
+				pstmt.setInt(1, bVO.getUpno());
+			}
 			pstmt.setInt(2, bVO.getMno());
 			pstmt.setString(3, bVO.getBody());
 			cnt = pstmt.executeUpdate();
@@ -165,5 +169,80 @@ public class ReboardDao {
 		
 		//	VO 반환
 		return bVO;
+	}
+	
+	//	게시글 삭제 데이터베이스작업 전담 처리 함수
+	public int delReboard(int rbno) {
+		int cnt = 0;
+		con = db.getCon();
+		String sql = rSQL.getSQL(rSQL.DEL_REBOARD);
+		pstmt = db.getPSTMT(con, sql);
+		try {
+			pstmt.setInt(1, rbno);
+			cnt = pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.close(pstmt);
+			db.close(con);
+		}
+		
+		return cnt;
+	}
+	
+	//	게시글 수정 데이터 조회 전담 처리 함수
+	public BoardVO getEditData(int bno, String body) {
+		BoardVO bVO = new BoardVO();
+		//	커넥션
+		con = db.getCon();
+		//	질의명령
+		String sql = rSQL.getSQL(rSQL.SEL_REBOARD_INFO);
+		
+		//	명령 전달도구
+		pstmt = db.getPSTMT(con, sql);
+		try {
+			//	질의명령 완성
+			pstmt.setInt(1, bno);
+			pstmt.setString(2, body);
+			//	보내고 결과 받고
+			rs = pstmt.executeQuery();
+			rs.next();
+			bVO.setBno(rs.getInt("rbno"));
+			bVO.setBody(rs.getString("body"));
+			bVO.setMno(rs.getInt("mno"));
+			bVO.setId(rs.getString("id"));
+			bVO.setAvatar(rs.getString("savename"));
+			bVO.setWdate(rs.getDate("wdate"));
+			bVO.setWtime(rs.getTime("wdate"));
+			bVO.setSdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.close(rs);
+			db.close(pstmt);
+			db.close(con);
+		}
+		
+		//	VO 반환
+		return bVO;
+	}
+	
+	//	게시글 수정 작업 처리 함수
+	public int editReboard(int bno, String body) {
+		int cnt = 0;
+		con = db.getCon();
+		String sql = rSQL.getSQL(rSQL.UPDATE_REBOARD);
+		pstmt = db.getPSTMT(con, sql);
+		try {
+			pstmt.setString(1, body);
+			pstmt.setInt(2, bno);
+			cnt = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.close(pstmt);
+			db.close(con);
+		}
+		return cnt;
 	}
 }

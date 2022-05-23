@@ -27,25 +27,42 @@ public class ReboardWriteProc implements BlpInter {
 		String sno = req.getParameter("mno");
 		String spage = req.getParameter("nowPage");
 		String body = req.getParameter("body");
+		String supno = req.getParameter("upno");
+		
 		
 		BoardVO bVO = new BoardVO();
 		bVO.setMno(Integer.parseInt(sno));
 		bVO.setBody(body);
+		if(supno != null) {
+			bVO.setUpno(Integer.parseInt(supno));
+		}
+		
 		
 		//	데이터 베이스 작업
 		ReboardDao rDao = new ReboardDao();
 		int cnt = rDao.addReboard(bVO);
 		
+		req.setAttribute("NOWPAGE", spage);
 		//	결과에 따라서 처리
-		if(cnt == 0) {
+		if(cnt == 0 && supno == null) {
+			//	원글 등록 실패
 			req.setAttribute("isRedirect", false);
 			//	view = "/whistle/reboard/reboardWrite.blp?nowPage" + spage;	//	get 방식
 			
 			//	post 방식 - forward 처리
 			req.setAttribute("VIEW", "/whistle/reboard/reboardWrite.blp?");
-			req.setAttribute("NOWPAGE", spage);
 			
-			return "/reboard/redirect";
+			view = "/reboard/redirect";
+		}  else if(cnt == 0 && supno != null) {
+			//	댓글 등록 실패
+			req.setAttribute("isRedirect", false);
+			req.setAttribute("VIEW", "/whistle/reboard/reboardComment.blp");
+			view = "/reboard/redirect";
+		} else if(cnt == 1 && supno != null) {
+			//	댓글 등록 성공
+			req.setAttribute("isRedirect", false);
+			req.setAttribute("VIEW", "/whistle/reboard/reboardList.blp");
+			view = "/reboard/redirect";
 		}
 		
 		return view;

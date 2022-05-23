@@ -96,15 +96,57 @@ $(document).ready(function(){
 		//	글번호 읽어오기
 		var sno = $(this).parent().attr('id');
 		
+		$('#bno').val(sno);
+		
 		if(btxt == '댓글') {
-			
-			$('#bno').val(sno);
-			
 			$('#frm').attr('action','/whistle/reboard/reboardComment.blp');
-			
-			$('#frm').submit();
+		} else if(btxt == '삭제'){
+			$('#frm').attr('action', '/whistle/reboard/reboardDel.blp');
+		} else if(btxt == '수정') {
+			$('#frm').attr('action', '/whistle/reboard/reboardEdit.blp');
 		}
+		$('#frm').submit();
+		
 	});
 	
+	//	댓글 등록 버튼 클릭 이벤트
+	$('#cmtbtn').click(function(){
+		var btxt = $('#body').val();
+		btxt = btxt.trim();
+		
+		if(!btxt) {
+			$('#body').focus();
+			return;
+		}
+		
+		if(btxt.length > 200) {
+			btxt = btxt.substring(0,200);
+			$('#body').val(btxt);
+			alert('코멘트 의 글자수는 200자를 초과할 수 없습니다.');
+			return;
+		}
+		
+		$('#frm').submit();
+		
+	});
 	
+	$('#editbtn').click(function(){
+		var btxt = $('#body').val();
+		var otxt = $('#obody').val();
+		
+		if(btxt == otxt) {
+			alert('수정하려는 내용과 원 내용이 동일합니다.');
+			return;
+		}
+		
+		if(btxt.length > 200) {
+			btxt = btxt.substring(0,200);
+			$('#body').val(btxt);
+			alert('코멘트 의 글자수는 200자를 초과할 수 없습니다.');
+			return;
+		}
+		
+		
+		$('#frm').submit();
+	});
 });
